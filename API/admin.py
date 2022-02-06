@@ -83,6 +83,26 @@ class NoticeHandler(Resource):
         return {"Success": True}
 
 
+class AddSlide(Resource):
+
+    @check_admin
+    def post(self):
+        data = request.form
+        url = upload_file_to_s3(request.files.get('image'))
+        new_Slide = Slide(name=data['name'], url=url)
+        db.session.add(new_Slide)
+        db.session.commit()
+        return {"Success": True}
+    
+    @check_admin
+    def delete(self):
+        data= request.args
+        slide = Slide.query.filter_by(sid=int(data['sid'])).first()
+        db.session.delete(slide)
+        db.session.commit()
+        return {"Success": True}
+
+
 api.add_resource(GallerHandler, '/gallery')
 api.add_resource(Login, '/login')
 api.add_resource(NoticeHandler, '/notice')
