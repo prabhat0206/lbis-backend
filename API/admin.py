@@ -106,3 +106,4 @@ class AddSlide(Resource):
 api.add_resource(GallerHandler, '/gallery')
 api.add_resource(Login, '/login')
 api.add_resource(NoticeHandler, '/notice')
+api.add_resource(AddSlide, '/slide')
