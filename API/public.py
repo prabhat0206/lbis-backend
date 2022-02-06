@@ -48,6 +48,17 @@ class Contact(Resource):
         return {"Success": True}
 
 
+class SlideApi(Resource):
+
+    def get(self):
+        slides = Slide.query.order_by(Slide.sid.desc()).all()
+        all_slide = []
+        for slide in slides:
+            all_slide.append(get_model_dict(slide))
+        return {"Success": True, "slides": all_slide}
+
+
 api.add_resource(AllNotice, '/notice')
 api.add_resource(Gallery, '/gallery')
 api.add_resource(Contact, '/contact')
+api.add_resource(SlideApi, '/slide-api')
